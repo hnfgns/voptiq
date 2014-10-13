@@ -1,0 +1,50 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>voptiq: optiq visual tracing</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="/s/css/bootstrap.min.css">
+</head>
+<body style="margin-top: 100px; ">
+  <!--[if lt IE 8]>
+  <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+  <![endif]-->
+  <div class="container">
+    <div class="well well-lg">
+      <form action="/analyze" method="get">
+        <div class="input-group input-group-lg">
+          <span class="input-group-addon">@</span>
+          <input type="text" name="trace" class="form-control" placeholder="trace file path" value="{{path}}">
+          <div class="input-group-btn">
+            <button type="submit" class="btn btn-success">analyze</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    %if msg:
+    <div class="alert alert-{{msg['kind']}}">
+      {{msg['text']}}
+    </div>
+    %end
+
+    %if trace:
+    <div class="well well-lg">
+      {{ trace }}
+      %for ir, round in enumerate(trace):
+      <pre style="word-wrap: normal;">
+      {{ round.dump() }}
+      </pre>
+      %end
+    </div>
+    %end
+
+  </div>
+
+</body>
+</html>
